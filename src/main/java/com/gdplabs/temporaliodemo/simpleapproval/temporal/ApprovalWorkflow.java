@@ -22,6 +22,12 @@ public interface ApprovalWorkflow {
     @SignalMethod
     void validate();
 
+    @SignalMethod
+    void deleteApprover(String approver, String workflowId);
+
+    @SignalMethod
+    void addApprover(String approver, String workflowId);
+
     @QueryMethod
     Map<String, Boolean> getStatus();
 

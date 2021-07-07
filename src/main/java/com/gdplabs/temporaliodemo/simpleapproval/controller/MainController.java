@@ -2,14 +2,14 @@ package com.gdplabs.temporaliodemo.simpleapproval.controller;
 
 
 import com.gdplabs.temporaliodemo.simpleapproval.service.ApprovalService;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class MainController {
@@ -38,6 +38,23 @@ public class MainController {
     ) {
         approvalService.approve(id, approver);
         return "Workflow Approved";
+    }
+
+    @PostMapping("/delete")
+    public String delete(
+            @RequestParam(name = "id") String id,
+            @RequestParam(name = "approver") String approver
+    ) {
+        approvalService.deleteApprover(id, approver);
+        return approver + " has been deleted";
+    }
+
+    @RequestMapping(path = "/getStatus", produces = "application/json", method = RequestMethod.GET)
+    @ResponseBody
+    public String getStatus(@RequestParam(name = "id") String id) {
+        Map<String, Boolean> map = approvalService.getStatus(id);
+        JSONObject jsonObject = new JSONObject(map);
+        return jsonObject.toJSONString();
     }
 
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ApprovalService {
@@ -28,6 +29,21 @@ public class ApprovalService {
     public void approve(String workflowId, String approver) {
         ApprovalWorkflow workflow = workflowClient.newWorkflowStub(ApprovalWorkflow.class, ID_PREFIX + workflowId);
         workflow.approve(approver, ID_PREFIX + workflowId);
+    }
+
+    public void deleteApprover(String workflowId, String approver) {
+        ApprovalWorkflow workflow = workflowClient.newWorkflowStub(ApprovalWorkflow.class, ID_PREFIX + workflowId);
+        workflow.deleteApprover(approver, workflowId);
+    }
+
+    public void addApprover(String workflowId, String approver) {
+        ApprovalWorkflow workflow = workflowClient.newWorkflowStub(ApprovalWorkflow.class, ID_PREFIX + workflowId);
+        workflow.addApprover(approver, workflowId);
+    }
+
+    public Map<String, Boolean> getStatus(String workflowId) {
+        ApprovalWorkflow workflow = workflowClient.newWorkflowStub(ApprovalWorkflow.class, ID_PREFIX + workflowId);
+        return workflow.getStatus();
     }
 
     private ApprovalWorkflow createWorkflowConnection(String workflowId) {

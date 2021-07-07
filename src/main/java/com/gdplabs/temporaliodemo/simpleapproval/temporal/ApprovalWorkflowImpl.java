@@ -59,6 +59,25 @@ public class ApprovalWorkflowImpl implements ApprovalWorkflow{
     }
 
     @Override
+    public void deleteApprover(String approver, String workflowId) {
+        Boolean status = approvalStatus.get(approver);
+        if(status == null) {
+            return;
+        }
+        if(status) {
+            totalApproved--;
+        }
+        approvalsNeeded--;
+        approvalStatus.remove(approver);
+    }
+
+    @Override
+    public void addApprover(String approver, String workflowId) {
+        approvalStatus.put(approver, false);
+        approvalsNeeded++;
+    }
+
+    @Override
     public Map<String, Boolean> getStatus() {
         return approvalStatus;
     }
