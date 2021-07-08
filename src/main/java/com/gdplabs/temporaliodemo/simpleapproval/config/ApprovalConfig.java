@@ -4,6 +4,9 @@ import com.gdplabs.temporaliodemo.simpleapproval.temporal.ApprovalActivities;
 import com.gdplabs.temporaliodemo.simpleapproval.temporal.ApprovalActivitiesImpl;
 import com.gdplabs.temporaliodemo.simpleapproval.temporal.ApprovalWorkflow;
 import com.gdplabs.temporaliodemo.simpleapproval.temporal.ApprovalWorkflowImpl;
+import com.gdplabs.temporaliodemo.subscription.temporal.SubscriptionActivities;
+import com.gdplabs.temporaliodemo.subscription.temporal.SubscriptionWorkflow;
+import com.gdplabs.temporaliodemo.subscription.temporal.SubscriptionWorkflowImpl;
 import io.temporal.client.WorkflowClient;
 import io.temporal.client.WorkflowClientOptions;
 import io.temporal.serviceclient.WorkflowServiceStubs;
@@ -56,10 +59,16 @@ public class ApprovalConfig {
     @EventListener(ApplicationReadyEvent.class)
     public void initWorker() {
         WorkerFactory factory= context.getBean(WorkerFactory.class);
-        ApprovalActivities activities = context.getBean(ApprovalActivities.class);
-        Worker worker = factory.newWorker(ApprovalWorkflow.QUEUE_NAME);
-        worker.registerWorkflowImplementationTypes(ApprovalWorkflowImpl.class);
-        worker.registerActivitiesImplementations(activities);
+        ApprovalActivities approvalActivities = context.getBean(ApprovalActivities.class);
+        Worker approvalworker = factory.newWorker(ApprovalWorkflow.QUEUE_NAME);
+        approvalworker.registerWorkflowImplementationTypes(ApprovalWorkflowImpl.class);
+        approvalworker.registerActivitiesImplementations(approvalActivities);
+
+        SubscriptionActivities activities = context.getBean(SubscriptionActivities.class);
+        Worker subscriptionWorker = factory.newWorker(SubscriptionWorkflow.QUEUE_NAME);
+        subscriptionWorker.registerWorkflowImplementationTypes(SubscriptionWorkflowImpl.class);
+        subscriptionWorker.registerActivitiesImplementations(activities);
+
         factory.start();
     }
 
