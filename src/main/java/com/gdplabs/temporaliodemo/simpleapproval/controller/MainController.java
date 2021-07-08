@@ -49,6 +49,15 @@ public class MainController {
         return approver + " has been deleted";
     }
 
+    @PostMapping("/add")
+    public String add(
+            @RequestParam(name = "id") String id,
+            @RequestParam(name = "approver") String approver
+    ) {
+        approvalService.addApprover(id, approver);
+        return approver + " has been added";
+    }
+
     @RequestMapping(path = "/getStatus", produces = "application/json", method = RequestMethod.GET)
     @ResponseBody
     public String getStatus(@RequestParam(name = "id") String id) {
