@@ -19,11 +19,10 @@ public class SubscriptionActivitiesImpl implements SubscriptionActivities{
     @Override
     public void chargeCustomer(Customer customer) {
         System.out.println("Customer " + customer.getId() + " has been charged");
-        customer.getSubscription().setBillingPeriodCharge(customer.getSubscription().getBillingPeriodCharge() + 10 );
     }
 
     @Override
     public void extendSubscription(Customer customer) {
-        customer.getSubscription().setBillingPeriod(Duration.ofSeconds(10));
+        System.out.println("Subscription for " + customer.getId() + " extended");
     }
 }

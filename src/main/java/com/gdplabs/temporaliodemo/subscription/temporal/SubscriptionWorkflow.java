@@ -1,6 +1,7 @@
 package com.gdplabs.temporaliodemo.subscription.temporal;
 
 import com.gdplabs.temporaliodemo.subscription.model.Customer;
+import io.temporal.workflow.QueryMethod;
 import io.temporal.workflow.SignalMethod;
 import io.temporal.workflow.WorkflowInterface;
 import io.temporal.workflow.WorkflowMethod;
@@ -14,6 +15,9 @@ public interface SubscriptionWorkflow {
     void startWorkflow(Customer customer);
 
     @SignalMethod
-    void cancelSubscription(Customer customer);
+    void cancelSubscription();
+
+    @QueryMethod
+    Customer getCustomer();
 
 }
