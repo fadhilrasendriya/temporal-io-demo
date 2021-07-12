@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/approval")
-public class MainController {
+public class ApprovalController {
 
     @Autowired
     private ApprovalService approvalService;
@@ -51,7 +51,7 @@ public class MainController {
     }
 
     @PostMapping("/add")
-    public String add(
+    public String addApprover(
             @RequestParam(name = "id") String id,
             @RequestParam(name = "approver") String approver
     ) {
