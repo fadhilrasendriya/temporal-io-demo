@@ -7,6 +7,7 @@ import com.gdplabs.temporaliodemo.shopping.temporal.ShoppingActivitiesImpl;
 import io.temporal.worker.Worker;
 import io.temporal.worker.WorkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -14,11 +15,15 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class ShoppingConfiguration {
 
-    private final String PAYMENT_SERVICE_URL = "http://127.0.0.1:5134";
+    @Value("${com.gdplabs.paymentservice.host}")
+    private String paymentServiceHost;
+
+    @Value("${com.gdplabs.paymentservice.port}")
+    private String paymentServicePort;
 
     @Bean(name = "paymentServiceClient")
     public WebClient webClient() {
-        return WebClient.create(PAYMENT_SERVICE_URL);
+        return WebClient.create(String.format("http://%s:%s", paymentServiceHost, paymentServicePort));
     }
 
     @Bean

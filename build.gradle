@@ -2,32 +2,32 @@ plugins {
 	id 'org.springframework.boot' version '2.5.2'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
-	id 'org.springframework.experimental.aot' version '0.10.1'
-	id 'org.graalvm.buildtools.native' version '0.9.1'
 }
 
 group = 'com.gdplabs'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+version = '0.0.1'
+sourceCompatibility = '11'
 
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
 repositories {
 	maven { url 'https://repo.spring.io/release' }
 	mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-    implementation 'io.temporal:temporal-sdk:1.1.0'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'io.projectreactor:reactor-test'
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest:2.5.3'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux:2.5.3'
+	implementation 'io.temporal:temporal-sdk:1.1.0.txt'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.3'
+	testImplementation 'io.projectreactor:reactor-test:3.4.8'
 }
 
 test {
 	useJUnitPlatform()
-}
-
-bootBuildImage {
-	builder = 'paketobuildpacks/builder:tiny'
-	environment = ['BP_NATIVE_IMAGE': 'true']
+	environment "PAYMENTSERVICE_HOST", "localhost"
+	environment "PAYMENTSERVICE_PORT", 5134
 }
