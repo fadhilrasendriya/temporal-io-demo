@@ -10,15 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
+@Component
 public class ShoppingConfiguration {
 
-    @Value("${com.gdplabs.paymentservice.host}")
+    @Value("${paymentHost}")
     private String paymentServiceHost;
 
-    @Value("${com.gdplabs.paymentservice.port}")
+    @Value("${paymentPort}")
     private String paymentServicePort;
 
     @Bean(name = "paymentServiceClient")

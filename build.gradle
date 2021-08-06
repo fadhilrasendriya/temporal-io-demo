@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.gdplabs'
-version = '0.0.1'
+version = '0.0.2'
 sourceCompatibility = '11'
 
 configurations {
@@ -21,13 +21,13 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest:2.5.3'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux:2.5.3'
-	implementation 'io.temporal:temporal-sdk:1.1.0.txt'
+	implementation 'io.temporal:temporal-sdk:1.1.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.3'
 	testImplementation 'io.projectreactor:reactor-test:3.4.8'
 }
 
 test {
 	useJUnitPlatform()
-	environment "PAYMENTSERVICE_HOST", "localhost"
-	environment "PAYMENTSERVICE_PORT", 5134
+	environment "PAYMENT_HOST", "localhost"
+	environment "PAYMENT_PORT", 5134
 }
