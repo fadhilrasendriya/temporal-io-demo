@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  temporal-io-demo:
+    container_name: temporal-io-demo
+    image: temporal-io-demo:0.0.1
+    network_mode: host
+    environment:
+      - PAYMENTSERVICE_HOST=localhost
+      - PAYMENTSERVICE_PORT=5134
+
